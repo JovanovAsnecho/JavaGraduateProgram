@@ -6,10 +6,8 @@ import javagraduateprogram.Repo.AvtorRepo;
 import javagraduateprogram.Repo.BookRepo;
 import javagraduateprogram.Services.BookService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,14 +35,13 @@ public class BookServiceImpl implements BookService {
 //    }
 
     @Override
-    public Optional<Kniga> findByIsbn(Long ISBN) throws IOException{
+    public Optional<Kniga> findByIsbn(Long ISBN) throws IOException {
         return this.bookRepo.findById(ISBN);
     }
 
     @Override
-    public Kniga save(Kniga kniga){
-        if(kniga.getAvtor()!=null)
-        {
+    public Kniga save(Kniga kniga) {
+        if (kniga.getAvtor() != null) {
             Optional<Avtor> avtor = this.avtorRepo.findById(kniga.getAvtor().getId());
             kniga.setAvtor(avtor.get());
 
@@ -56,10 +53,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public Kniga edit(Kniga kniga, Long ISBN) throws IOException {
 
-        Optional<Kniga> editKniga= this.findByIsbn(ISBN);
-        Kniga editKniga1=editKniga.get();
-        if(kniga.getAvtor()!=null)
-        {
+        Optional<Kniga> editKniga = this.findByIsbn(ISBN);
+        Kniga editKniga1 = editKniga.get();
+        if (kniga.getAvtor() != null) {
             Optional<Avtor> avtor = this.avtorRepo.findById(kniga.getAvtor().getId());
             kniga.setAvtor(avtor.get());
             editKniga1.setAvtor(avtor.get());
@@ -92,18 +88,18 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Kniga> findOldestBook(int godinaNaIzdavanje) {
-        return null;
+    public Optional<Kniga> findOldestBook() {
+        return bookRepo.findTopByOrderByGodinaIzdavanjeAsc();
     }
 
     @Override
-    public List<Kniga> findNewestBook(int godinaNaIzdavanje) {
-        return null;
+    public Optional<Kniga> findNewestBook() {
+        return bookRepo.findTopByOrderByGodinaIzdavanjeDesc();
     }
 
     @Override
-    public List<Kniga> allBooks(Long ISBN, int godinaNaIzdavanje) {
-        return null;
+    public List<Kniga> findAllBooksChronological() {
+        return bookRepo.findAllByOrderByGodinaIzdavanjeAsc();
     }
 
 

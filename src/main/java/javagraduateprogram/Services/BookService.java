@@ -1,6 +1,5 @@
 package javagraduateprogram.Services;
 
-import javagraduateprogram.Model.Avtor;
 import javagraduateprogram.Model.Kniga;
 
 import java.io.IOException;
@@ -18,7 +17,8 @@ public interface BookService {
     List<Kniga> findAll();
     List<Kniga> findAllBooksByAuthorFirstLetter(Character c);
     List<Kniga> findAllBooksByAuthorName(String name);
-    List<Kniga> findOldestBook(int godinaNaIzdavanje);
-    List<Kniga> findNewestBook(int godinaNaIzdavanje);
-    List<Kniga> allBooks(Long ISBN,int godinaNaIzdavanje);
+    Optional<Kniga> findOldestBook();
+    Optional<Kniga> findNewestBook();
+    List<Kniga> findAllBooksChronological();
+
 }

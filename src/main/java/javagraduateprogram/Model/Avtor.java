@@ -4,6 +4,7 @@ package javagraduateprogram.Model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Avtor {
     private String ime;
     private String prezime;
     private int godinaNaRagjanje;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Kniga> knigi=new ArrayList<>();
 
     public Avtor(String ime, String prezime, int godinaNaRagjanje) {
@@ -56,6 +57,11 @@ public class Avtor {
 
     public String getPrezime() {
         return prezime;
+    }
+
+    public void addBook(Kniga book){
+        book.setAvtor(this);
+        knigi.add(book);
     }
 
     public void setPrezime(String prezime) {

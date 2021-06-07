@@ -27,9 +27,8 @@ public class AvtorServiceImpl implements AvtorService {
     }
 
     @Override
-    public List<Avtor> findAllAuthorsWithThreeOrMoreBooks() {
-        if(getKnigi())
-        return null;
+    public List<Avtor> findAllAuthorsWithThreeOrMoreBooks(Integer greaterThan) {
+        return avtorRepo.findAllByKnigiGreaterThan(greaterThan);
 
     }
 
